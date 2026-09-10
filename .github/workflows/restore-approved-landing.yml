@@ -1,0 +1,73 @@
+name: Restore approved ARQS landing page
+on:
+  push:
+    branches: [restore/approved-chrome-gold-20260909]
+    paths: [.github/workflows/restore-approved-landing.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: arqs-approved-landing-import
+  cancel-in-progress: false
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the restoration branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: restore/approved-chrome-gold-20260909
+      - name: Download and verify the approved public release
+        env:
+          RELEASE_URL: https://drive.google.com/uc?id=1UyroY8wdKiOUuvxZQFe4y3jyIGCkcpwt&export=download
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --retry-delay 3 --max-time 60 "$RELEASE_URL" --output /tmp/arqs-approved.zip
+          echo '3136f841689b8cf53e191071fceff8f89650fc07917b5f21e2c2dead7c6f0583  /tmp/arqs-approved.zip' | sha256sum --check --strict
+      - name: Apply only the four approved public website files
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, zipfile
+          allowed = {'site/index.html', 'server.cjs', 'site/assets/approved-artwork.json', 'site/assets/approved-landing.jpg'}
+          with zipfile.ZipFile('/tmp/arqs-approved.zip') as archive:
+              assert len(archive.namelist()) == 4 and set(archive.namelist()) == allowed, 'Unexpected release contents'
+              assert sum(i.file_size for i in archive.infolist()) < 2000000, 'Release size exceeds limit'
+              for name in sorted(allowed):
+                  target = pathlib.Path(name)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(archive.read(name))
+          art = pathlib.Path('site/assets/approved-landing.jpg').read_bytes()
+          assert len(art) == 623902
+          assert hashlib.sha256(art).hexdigest() == '947d4b565dc686c13adc98147459264457203a4472362d4acc42d102043c8364'
+          manifest = json.loads(pathlib.Path('site/assets/approved-artwork.json').read_text())
+          assert manifest['sha256'] == hashlib.sha256(art).hexdigest()
+          assert 'approved-chrome-gold-v1' in pathlib.Path('site/index.html').read_text()
+          print('Approved release and original artwork verified.')
+          PY
+      - name: Verify server and image delivery
+        run: |
+          set -euo pipefail
+          node --check server.cjs
+          PORT=3087 node server.cjs >/tmp/arqs-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for i in 1 2 3 4 5; do
+            if curl --fail --silent http://127.0.0.1:3087/healthz >/tmp/arqs-health.json; then break; fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:3087/assets/approved-landing.jpg --output /tmp/arqs-served.jpg
+          echo '947d4b565dc686c13adc98147459264457203a4472362d4acc42d102043c8364  /tmp/arqs-served.jpg' | sha256sum --check --strict
+          curl --fail --silent http://127.0.0.1:3087/healthz | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["build"]=="approved-chrome-gold-v1" and d["artworkVerified"] is True; print(d)'
+      - name: Commit the verified release to the restoration branch only
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add site/index.html server.cjs site/assets/approved-artwork.json site/assets/approved-landing.jpg
+          if git diff --cached --quiet; then
+            echo 'Approved website release is already present.'
+          else
+            git commit -m 'Restore Founder-approved chrome-and-gold ARQS landing page with original artwork'
+            git push origin HEAD:restore/approved-chrome-gold-20260909
+          fi
