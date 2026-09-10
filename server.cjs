@@ -6,7 +6,7 @@ const crypto = require('node:crypto');
 const ROOT = path.join(__dirname, 'site');
 const RELEASE_FILE = path.join(__dirname, 'ARQS_Approved_Website_Release.json');
 const IMAGE_SHA = '947d4b565dc686c13adc98147459264457203a4472362d4acc42d102043c8364';
-const HTML_SHA = '0e79f7fe434e6be64274237825afa74bee4e506df01bad5a4f14bdc9a8649bd7';
+const HTML_SHA = 'b6a3b838c3a140f01c5226a6ea33a4de3d1c95c1cdce3d807bca2a522f72c375';
 const HASH = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const FILES = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
