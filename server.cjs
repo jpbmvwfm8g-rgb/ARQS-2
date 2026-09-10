@@ -13,6 +13,8 @@ const FILES = new Map([
   ['/', ['index.html', 'text/html; charset=utf-8']],
   ['/index.html', ['index.html', 'text/html; charset=utf-8']],
   ['/about.html', ['about.html', 'text/html; charset=utf-8']],
+  ['/press', ['press.html', 'text/html; charset=utf-8']],
+  ['/press.html', ['press.html', 'text/html; charset=utf-8']],
   ['/assets/styles.css', ['assets/styles.css', 'text/css; charset=utf-8']],
   ['/assets/app.js', ['assets/app.js', 'text/javascript; charset=utf-8']],
   ['/assets/sentinel-mark.svg', ['assets/sentinel-mark.svg', 'image/svg+xml']]
