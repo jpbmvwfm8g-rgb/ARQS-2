@@ -1,0 +1,11 @@
+{
+  "name": "arqs-ca-web-preview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dependency-free preview server for the ARQS website.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node --check server.cjs",
+    "start": "node server.cjs"
+  }
+}
