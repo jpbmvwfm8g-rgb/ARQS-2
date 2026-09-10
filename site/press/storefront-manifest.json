@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "catalogue": "ARQS Press",
+  "state": "PRIVATE_STAGING",
+  "website_ready": true,
+  "public_live": false,
+  "checkout_enabled": false,
+  "founder_authorization_required": true,
+  "currency": "CAD",
+  "products": [
+    {
+      "sku": "ARQS-SF-OCN-001",
+      "title": "How Whales Talk: The Science of Ocean Sound",
+      "short_title": "How Whales Talk",
+      "series": "ARQS Science Facts",
+      "category": "Ocean & Marine Life",
+      "audience": "Ages 7–13",
+      "authors": ["E.H. Ackerman", "J.D. Ackerman"],
+      "format": "Premium digital PDF",
+      "pages": 48,
+      "price_hypothesis": 9.99,
+      "detail_path": "/press/how-whales-talk",
+      "preview_state": "CONTROLLED_PRIVATE_SAMPLE_READY",
+      "fulfillment_class": "SINGLE_EXACT_VERSION_DIGITAL_ENTITLEMENT",
+      "publication_state": "WEBSITE_READY_PRIVATE_STAGING"
+    },
+    {
+      "sku": "ARQS-SF-OCN-002",
+      "title": "Shark Signals: Senses, Navigation and Ocean Journeys",
+      "short_title": "Shark Signals",
+      "series": "ARQS Science Facts",
+      "category": "Ocean & Marine Life",
+      "audience": "Ages 7–13",
+      "authors": ["E.H. Ackerman", "J.D. Ackerman"],
+      "format": "Premium digital PDF",
+      "pages": 48,
+      "price_hypothesis": 9.99,
+      "detail_path": "/press/shark-signals",
+      "preview_state": "CONTROLLED_PRIVATE_SAMPLE_READY",
+      "fulfillment_class": "SINGLE_EXACT_VERSION_DIGITAL_ENTITLEMENT",
+      "publication_state": "WEBSITE_READY_PRIVATE_STAGING"
+    },
+    {
+      "sku": "ARQS-SF-OCN-BDL-001",
+      "title": "Ocean Science Starter Bundle",
+      "series": "ARQS Science Facts",
+      "category": "Digital Bundles",
+      "audience": "Ages 7–13",
+      "authors": ["E.H. Ackerman", "J.D. Ackerman"],
+      "format": "Two premium digital PDFs",
+      "pages": 96,
+      "price_hypothesis": 16.99,
+      "detail_path": "/press/ocean-science-starter-bundle",
+      "component_skus": ["ARQS-SF-OCN-001", "ARQS-SF-OCN-002"],
+      "preview_state": "TWO_CONTROLLED_PRIVATE_SAMPLES_READY",
+      "fulfillment_class": "TWO_EXACT_VERSION_DIGITAL_ENTITLEMENTS",
+      "publication_state": "WEBSITE_READY_PRIVATE_STAGING"
+    }
+  ],
+  "release_controls": {
+    "payment_endpoint_embedded": false,
+    "customer_master_url_embedded": false,
+    "drive_id_embedded": false,
+    "credentials_embedded": false,
+    "isbn_action": false,
+    "external_publication_action": false
+  }
+}
