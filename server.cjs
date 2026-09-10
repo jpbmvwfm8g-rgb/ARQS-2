@@ -15,6 +15,13 @@ const FILES = new Map([
   ['/about.html', ['about.html', 'text/html; charset=utf-8']],
   ['/press', ['press.html', 'text/html; charset=utf-8']],
   ['/press.html', ['press.html', 'text/html; charset=utf-8']],
+  ['/press/how-whales-talk', ['press/how-whales-talk.html', 'text/html; charset=utf-8']],
+  ['/press/how-whales-talk.html', ['press/how-whales-talk.html', 'text/html; charset=utf-8']],
+  ['/press/shark-signals', ['press/shark-signals.html', 'text/html; charset=utf-8']],
+  ['/press/shark-signals.html', ['press/shark-signals.html', 'text/html; charset=utf-8']],
+  ['/press/ocean-science-starter-bundle', ['press/ocean-science-starter-bundle.html', 'text/html; charset=utf-8']],
+  ['/press/ocean-science-starter-bundle.html', ['press/ocean-science-starter-bundle.html', 'text/html; charset=utf-8']],
+  ['/press/storefront-manifest.json', ['press/storefront-manifest.json', 'application/json; charset=utf-8']],
   ['/assets/styles.css', ['assets/styles.css', 'text/css; charset=utf-8']],
   ['/assets/app.js', ['assets/app.js', 'text/javascript; charset=utf-8']],
   ['/assets/sentinel-mark.svg', ['assets/sentinel-mark.svg', 'image/svg+xml']]
